@@ -23,7 +23,7 @@ void swap_ele(int *a, int *b)
  */
 void selection_sort(int *array, size_t size)
 {
-	int min;
+	int *min;
 	size_t i, j;
 
 	if (array == NULL || size < 2)
@@ -31,16 +31,14 @@ void selection_sort(int *array, size_t size)
 
 	for (i = 0; i < size - 1; i++)
 	{
-		min = i;
+		min = array + i;
 		for (j = i + 1; j < size; j++)
+			min = (array[j] < *min) ? (array + j) : min;
+
+		if ((array + i) != min)
 		{
-			if ((array[j] < array[min])
-				min = j;
-		}
-		if (min != i)
-		{
-		swap_ele(array[i], array[min]);
-		print_array(array, size);
+			swap_ele(array + i, min);
+			print_array(array, size);
 		}
 	}
 }
